@@ -1,10 +1,10 @@
 import { Schema } from 'mongoose'
-import { TName, TUser } from './user.interface'
+import { TUserName, TUser } from './user.interface'
 import validator from 'validator'
 import { model } from 'mongoose'
 
 // Sub-schema for UserName
-const UserNameSchema = new Schema<TName>({
+const UserNameSchema = new Schema<TUserName>({
   firstName: {
     type: String,
     required: [true, 'First Name is required'],

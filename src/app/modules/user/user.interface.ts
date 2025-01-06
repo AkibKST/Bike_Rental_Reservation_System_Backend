@@ -1,4 +1,4 @@
-export type TName = {
+export type TUserName = {
   firstName: string
   middleName?: string
   lastName: string
@@ -6,7 +6,7 @@ export type TName = {
 
 export interface TUser {
   id: string
-  name: TName
+  name: TUserName
   email: string
   password: string
   needsPasswordChange: boolean
