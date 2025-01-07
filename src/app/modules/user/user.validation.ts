@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 // Sub-schema for UserName validation
 const userNameValidationSchema = z.object({
@@ -16,7 +16,7 @@ const userNameValidationSchema = z.object({
     .refine(value => /^[A-Za-z]+$/.test(value), {
       message: 'Last Name must contain only alphabetic characters',
     }),
-})
+});
 //----------------------------------------------
 
 // Main User schema validation for create user
@@ -43,11 +43,11 @@ const userCreateValidationSchema = z.object({
   isDeleted: z.boolean().default(false),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
-})
+});
 //----------------------------------------------
 
 // Export validation schemas
 export const userValidations = {
   userNameValidationSchema,
   userCreateValidationSchema,
-}
+};
