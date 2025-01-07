@@ -1,7 +1,9 @@
-import { Schema } from 'mongoose'
-import { TUserName, TUser } from './user.interface'
-import validator from 'validator'
-import { model } from 'mongoose'
+import { Schema } from 'mongoose';
+import { TUserName, TUser } from './user.interface';
+import validator from 'validator';
+import { model } from 'mongoose';
+import bcrypt from 'bcrypt';
+import config from '../../config';
 
 // Sub-schema for UserName
 const UserNameSchema = new Schema<TUserName>({
@@ -12,8 +14,8 @@ const UserNameSchema = new Schema<TUserName>({
     maxlength: [20, 'Name can not be more than 20 characters'],
     validate: {
       validator: function (value: string) {
-        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1) //Akib
-        return firstNameStr === value
+        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1); //Akib
+        return firstNameStr === value;
       },
       message: '{VALUE} is not in capitalize format',
     },
@@ -27,7 +29,7 @@ const UserNameSchema = new Schema<TUserName>({
       message: '{VALUE} is not valid',
     },
   },
-})
+});
 
 const userSchema = new Schema<TUser>(
   {
@@ -76,12 +78,23 @@ const userSchema = new Schema<TUser>(
   {
     timestamps: true,
   },
-)
+);
 
 //virtual
 userSchema.virtual('fullName').get(function () {
-  return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`
-})
+  return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`;
+});
+
+// hash password before save the data
+userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds),
+  );
+  next();
+});
 
 // Create user Model
-export const User = model<TUser>('User', userSchema)
+export const User = model<TUser>('User', userSchema);
