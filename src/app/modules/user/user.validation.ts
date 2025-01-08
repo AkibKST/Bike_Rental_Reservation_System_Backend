@@ -1,29 +1,14 @@
 import { z } from 'zod';
 
 // Sub-schema for UserName validation
-const userNameValidationSchema = z.object({
-  firstName: z
-    .string()
-    .nonempty({ message: 'First Name is required' })
-    .max(20, { message: 'First Name cannot exceed 20 characters' })
-    .refine(value => value.charAt(0).toUpperCase() + value.slice(1) === value, {
-      message: 'First Name must be in capitalize format',
-    }),
-  middleName: z.string().optional(),
-  lastName: z
-    .string()
-    .nonempty({ message: 'Last Name is required' })
-    .refine(value => /^[A-Za-z]+$/.test(value), {
-      message: 'Last Name must contain only alphabetic characters',
-    }),
-});
+
 //----------------------------------------------
 
 // Main User schema validation for create user
 const createUserValidationSchema = z.object({
   body: z.object({
     id: z.string().nonempty({ message: 'ID is required' }),
-    name: userNameValidationSchema,
+    name: z.string().nonempty({ message: 'Name is required' }),
     email: z
       .string()
       .email({ message: 'Email must be a valid email address' })
@@ -50,7 +35,7 @@ const createUserValidationSchema = z.object({
 // Main User schema validation for update user
 const updateUserValidationSchema = z.object({
   body: z.object({
-    name: userNameValidationSchema,
+    name: z.string().optional(),
     email: z
       .string()
       .email({ message: 'Email must be a valid email address' })
@@ -79,7 +64,6 @@ const updateUserValidationSchema = z.object({
 
 // Export validation schemas
 export const userValidations = {
-  userNameValidationSchema,
   createUserValidationSchema,
   updateUserValidationSchema,
 };

@@ -1,35 +1,11 @@
 import { Schema } from 'mongoose';
-import { TUserName, TUser } from './user.interface';
+import { TUser } from './user.interface';
 import validator from 'validator';
 import { model } from 'mongoose';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
-// Sub-schema for UserName
-const UserNameSchema = new Schema<TUserName>({
-  firstName: {
-    type: String,
-    required: [true, 'First Name is required'],
-    trim: true,
-    maxlength: [20, 'Name can not be more than 20 characters'],
-    validate: {
-      validator: function (value: string) {
-        const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1); //Akib
-        return firstNameStr === value;
-      },
-      message: '{VALUE} is not in capitalize format',
-    },
-  },
-  middleName: { type: String },
-  lastName: {
-    type: String,
-    required: [true, 'Last Name is required'],
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: '{VALUE} is not valid',
-    },
-  },
-});
+// Schema for UserName
 
 const userSchema = new Schema<TUser>(
   {
@@ -38,7 +14,10 @@ const userSchema = new Schema<TUser>(
       required: true,
       unique: true,
     },
-    name: UserNameSchema,
+    name: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: [true, 'Email is required'],
@@ -80,10 +59,10 @@ const userSchema = new Schema<TUser>(
   },
 );
 
-//virtual
-userSchema.virtual('fullName').get(function () {
-  return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`;
-});
+// //virtual
+// userSchema.virtual('fullName').get(function () {
+//   return `${this?.name?.firstName} ${this?.name?.middleName} ${this?.name?.lastName}`;
+// });
 
 // hash password before save the data
 userSchema.pre('save', async function (next) {

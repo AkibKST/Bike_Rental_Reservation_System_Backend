@@ -3,12 +3,14 @@ import bcrypt from 'bcrypt';
 import { createToken } from './auth.utils';
 import config from '../../config';
 import { User } from '../user/user.model';
+import AppError from '../../errors/AppError';
+import { JwtPayload } from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
   const user = await User.findOne({ email: payload.email }).select('+password');
 
   if (!user) {
-    throw new Error('User not found !');
+    throw new AppError(404, 'User not found !');
   }
 
   //checking if the password is correct
@@ -19,18 +21,18 @@ const loginUser = async (payload: TLoginUser) => {
   );
 
   if (!matchPassword) {
-    throw new Error('Wrong Password !');
+    throw new AppError(400, 'Wrong Password !');
   }
 
   //create token and send to the  client
 
-  const jwtPayload = {
+  const jwtPayload: JwtPayload = {
     email: user.email,
     role: user.role,
   };
 
   const accessToken = createToken(
-    jwtPayload,
+    jwtPayload as JwtPayload,
     config.jwt_access_secret as string,
     config.jwt_access_expires_in as string,
   );

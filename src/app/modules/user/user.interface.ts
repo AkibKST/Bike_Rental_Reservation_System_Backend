@@ -1,14 +1,8 @@
-export type TUserName = {
-  firstName: string;
-  middleName?: string;
-  lastName: string;
-};
-
 export type UserRole = 'admin' | 'user';
 
 export interface TUser {
   id: string;
-  name: TUserName;
+  name: string;
   email: string;
   password: string;
   needsPasswordChange: boolean;
