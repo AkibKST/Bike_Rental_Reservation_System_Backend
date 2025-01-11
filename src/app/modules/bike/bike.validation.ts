@@ -6,6 +6,7 @@ const createBikeValidation = z.object({
     name: z.string(),
     description: z.string(),
     pricePerHour: z.number().positive('Price must be a positive number!'),
+    isAvailable: z.boolean().default(true),
     cc: z.number().positive('CC must be a positive number!'),
     year: z.number().positive('Year must be a positive number!'),
     model: z.string(),
@@ -24,6 +25,7 @@ const updateBikeValidation = z.object({
       .number()
       .positive('Price must be a positive number!')
       .optional(),
+    isAvailable: z.boolean().default(true).optional(),
     cc: z.number().positive('CC must be a positive number!').optional(),
     year: z.number().positive('Year must be a positive number!').optional(),
     model: z.string().optional(),
