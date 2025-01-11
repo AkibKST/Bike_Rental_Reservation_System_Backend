@@ -1,3 +1,4 @@
+import AppError from '../../errors/AppError';
 import { TBike } from './bike.interface';
 import { Bike } from './bike.model';
 
@@ -15,7 +16,27 @@ const getAllBike = async () => {
 };
 //-----------------------------------
 
+// update bike
+const updateBike = async (id: string, payload: Partial<TBike>) => {
+  const result = await Bike.findOneAndUpdate(
+    { _id: id },
+    { $set: payload },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  if (!result) {
+    throw new AppError(404, 'Bike not found!');
+  }
+
+  return result;
+};
+//-----------------------------------
+
 export const BikeServices = {
   createBike,
   getAllBike,
+  updateBike,
 };

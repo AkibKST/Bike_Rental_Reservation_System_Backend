@@ -14,4 +14,10 @@ router.post(
 
 router.get('/', BikeControllers.getAllBike);
 
+router.put(
+  '/:id',
+  validateRequest(BikeValidation.updateBikeValidation),
+  BikeControllers.updateBike,
+);
+
 export const BikeRoutes = router;
