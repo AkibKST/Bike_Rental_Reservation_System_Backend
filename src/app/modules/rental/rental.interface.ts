@@ -1,12 +1,12 @@
 import { Types } from 'mongoose';
 
-export type TBooking = {
+export type TRental = {
   date: string;
   startTime: string;
   endTime: string;
   user: Types.ObjectId;
   bike: Types.ObjectId;
-  paymentTotal: number;
+  totalCost: number;
   isBooked: 'confirmed' | 'cancelled';
 };
 
