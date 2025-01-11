@@ -20,4 +20,6 @@ router.put(
   BikeControllers.updateBike,
 );
 
+router.delete('/:id', BikeControllers.deleteBike);
+
 export const BikeRoutes = router;

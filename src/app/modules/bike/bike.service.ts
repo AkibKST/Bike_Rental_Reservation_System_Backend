@@ -35,8 +35,24 @@ const updateBike = async (id: string, payload: Partial<TBike>) => {
 };
 //-----------------------------------
 
+// update bike
+const deleteBike = async (id: string) => {
+  const result = await Bike.findOneAndUpdate(
+    { _id: id },
+    { isDeleted: true, isAvailable: false },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  return result;
+};
+//-----------------------------------
+
 export const BikeServices = {
   createBike,
   getAllBike,
   updateBike,
+  deleteBike,
 };
