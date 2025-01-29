@@ -6,6 +6,7 @@ import AppError from '../../errors/AppError';
 import { Rental } from './rental.model';
 import moment from 'moment';
 import { Types } from 'mongoose';
+import calculatePayable from '../../utils/calculatePayable';
 
 // create bike
 const createRental = async (payload: TRental, user: JwtPayload) => {
@@ -38,7 +39,13 @@ const createRental = async (payload: TRental, user: JwtPayload) => {
   }
 
   payload.user = userData?._id as Types.ObjectId;
-  payload.totalCost = calculatePayment();
+  payload.totalCost = calculatePayable(
+    payload.endTime,
+    payload.startTime,
+    bikeDetails?.pricePerHour as number,
+  );
+
+  const result = await Rental.create(payload);
   return result;
 };
 //-----------------------------------
@@ -84,4 +91,4 @@ const createRental = async (payload: TRental, user: JwtPayload) => {
 // };
 //-----------------------------------
 
-export const RentalServices = {};
+export const RentalServices = { createRental };

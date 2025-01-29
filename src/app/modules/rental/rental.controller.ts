@@ -1,9 +1,10 @@
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
+import { RentalServices } from './rental.service';
 
 //create bike controller
 const createRental = catchAsync(async (req, res) => {
-  const result = await BikeServices.createBike(req.body);
+  const result = await RentalServices.createRental(req.body, req.user);
 
   sendResponse(res, {
     statusCode: 200,
