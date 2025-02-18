@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// User Services
 import { TUser } from './user.interface';
 import { User } from './user.model';
 
@@ -20,7 +20,28 @@ const createUserIntoDB = async (payload: TUser) => {
 
   // set generated id
 };
+//---------------------------------------------
+
+// get user profile
+const getProfile = async (userEmail: string) => {
+  // console.log(userId);
+  const user = await User.findOne({ email: userEmail });
+  return user;
+};
+//---------------------------------------------
+
+// update user profile
+const updateProfile = async (userEmail: string, updatedData: TUser) => {
+  const user = await User.findOneAndUpdate({ email: userEmail }, updatedData, {
+    new: true,
+    runValidators: true,
+  });
+  return user;
+};
+//---------------------------------------------
 
 export const UserServices = {
   createUserIntoDB,
+  getProfile,
+  updateProfile,
 };

@@ -9,11 +9,6 @@ import config from '../../config';
 
 const userSchema = new Schema<TUser>(
   {
-    id: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     name: {
       type: String,
       required: true,

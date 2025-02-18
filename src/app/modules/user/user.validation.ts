@@ -7,7 +7,6 @@ import { z } from 'zod';
 // Main User schema validation for create user
 const createUserValidationSchema = z.object({
   body: z.object({
-    id: z.string().nonempty({ message: 'ID is required' }),
     name: z.string().nonempty({ message: 'Name is required' }),
     email: z
       .string()
