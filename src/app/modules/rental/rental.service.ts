@@ -6,11 +6,6 @@ import AppError from '../../errors/AppError';
 import { Rental } from './rental.model';
 import calculatePayable from '../../utils/calculatePayable';
 import { TimeFormattingHHmm } from './rental.utils';
-// import { User } from '../user/user.model';
-// import { Bike } from '../bike/bike.model';
-// import AppError from '../../errors/AppError';
-// import { Rental } from './rental.model';
-// import moment from 'moment';
 
 // create bike
 const createRental = async (payload: TRental, user: JwtPayload) => {
@@ -100,41 +95,19 @@ const returnBike = async (id: string) => {
 };
 //-----------------------------------
 
-// update bike
-// const updateBike = async (id: string, payload: Partial<TBike>) => {
-//   const result = await Bike.findOneAndUpdate(
-//     { _id: id },
-//     { $set: payload },
-//     {
-//       new: true,
-//       runValidators: true,
-//     },
-//   );
-
-//   if (!result) {
-//     throw new AppError(404, 'Bike not found!');
-//   }
-
-//   return result;
-// };
-//-----------------------------------
-
-// update bike
-// const deleteBike = async (id: string) => {
-//   const result = await Bike.findOneAndUpdate(
-//     { _id: id },
-//     { isDeleted: true, isAvailable: false },
-//     {
-//       new: true,
-//       runValidators: true,
-//     },
-//   );
-
-//   return result;
-// };
+// get all rentals for user
+const getUserRentals = async (user: JwtPayload) => {
+  const userData = await User.findOne({ email: user.email });
+  const rentals = await Rental.find({ userId: userData?._id }).populate(
+    'bikeId',
+  );
+  // console.log(rentals.length, user._id, userData);
+  return rentals;
+};
 //-----------------------------------
 
 export const RentalServices = {
   createRental,
   returnBike,
+  getUserRentals,
 };

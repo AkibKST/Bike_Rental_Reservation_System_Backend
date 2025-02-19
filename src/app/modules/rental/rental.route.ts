@@ -22,7 +22,11 @@ router.put('/:id/return', auth(USER_ROLE.admin), RentalControllers.returnBike);
 // --------------------------------
 
 // //get user rentals route
-// router.get('/', RentalControllers.getUserRentals);
+router.get(
+  '/',
+  auth(USER_ROLE.admin || USER_ROLE.user),
+  RentalControllers.getUserRentals,
+);
 //--------------------------------
 
 export const RentalRoutes = router;

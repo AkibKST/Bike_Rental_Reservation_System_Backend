@@ -53,7 +53,7 @@ const auth = (...requiredRoles: UserRole[]) => {
     // check if requiredRoles & decoded roles are valid
 
     if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(401, 'You are not authorized!');
+      throw new AppError(401, 'You have no access to this route!');
     }
     //--------------------------------------------------
 

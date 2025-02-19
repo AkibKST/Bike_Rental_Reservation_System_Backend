@@ -26,17 +26,18 @@ const returnBike = catchAsync(async (req, res) => {
     data: result,
   });
 });
-// const getAllBike = catchAsync(async (req, res) => {
-//   const result = await BikeServices.getAllBike();
 
-//   sendResponse(res, {
-//     statusCode: result.length === 0 ? 404 : 200,
-//     success: result.length === 0 ? false : true,
-//     message:
-//       result.length === 0 ? 'No data found' : 'Bikes retrieved successfully',
-//     data: result,
-//   });
-// });
+// //get all rental for user
+const getUserRentals = catchAsync(async (req, res) => {
+  const result = await RentalServices.getUserRentals(req.user);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Rentals retrieved successfully',
+    data: result,
+  });
+});
 //-----------------------------------
 
 //update bike controller
@@ -68,4 +69,5 @@ const returnBike = catchAsync(async (req, res) => {
 export const RentalControllers = {
   createRental,
   returnBike,
+  getUserRentals,
 };
