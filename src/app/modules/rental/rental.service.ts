@@ -6,14 +6,22 @@ import AppError from '../../errors/AppError';
 import { Rental } from './rental.model';
 import calculatePayable from '../../utils/calculatePayable';
 import { TimeFormattingHHmm } from './rental.utils';
+import mongoose from 'mongoose';
 
 // create bike
 const createRental = async (payload: TRental, user: JwtPayload) => {
+  // implement transaction
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   const { bikeId, startTime, date } = payload;
-  const bike = await Bike.findById(bikeId);
+  const bike = await Bike.findById(bikeId).session(session);
   const userData = await User.findOne({ email: user.email });
 
   if (!bike || !bike.isAvailable) {
+    await session.abortTransaction();
+    session.endSession();
+
     throw new AppError(404, 'Bike not found!');
   }
 
@@ -25,9 +33,14 @@ const createRental = async (payload: TRental, user: JwtPayload) => {
     endTime: '',
     totalCost: 0,
   });
-  await rental.save();
+  await rental.save({ session });
+
   bike.isAvailable = false;
-  await bike.save();
+  await bike.save({ session });
+
+  await session.abortTransaction();
+  session.endSession();
+
   return rental;
   // const rentals = await Rental.find({ date: payload.date });
 
@@ -63,14 +76,22 @@ const createRental = async (payload: TRental, user: JwtPayload) => {
 
 // return bike
 const returnBike = async (id: string) => {
-  const rental = await Rental.findById(id);
+  // implement transaction
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  const rental = await Rental.findById(id).session(session);
 
   if (!rental) {
+    await session.abortTransaction();
+    session.endSession();
     throw new AppError(404, 'Rental not found!');
   }
 
-  const bike = await Bike.findById(rental.bikeId);
+  const bike = await Bike.findById(rental.bikeId).session(session);
   if (!bike) {
+    await session.abortTransaction();
+    session.endSession();
     throw new AppError(404, 'Bike not found!');
   }
 
@@ -86,10 +107,13 @@ const returnBike = async (id: string) => {
     bike.pricePerHour as number,
   );
   rental.isReturned = true;
-  await rental.save();
+  await rental.save({ session });
 
   bike.isAvailable = true;
-  await bike.save();
+  await bike.save({ session });
+
+  await session.abortTransaction();
+  session.endSession();
 
   return rental;
 };
@@ -97,11 +121,18 @@ const returnBike = async (id: string) => {
 
 // get all rentals for user
 const getUserRentals = async (user: JwtPayload) => {
-  const userData = await User.findOne({ email: user.email });
-  const rentals = await Rental.find({ userId: userData?._id }).populate(
-    'bikeId',
-  );
-  // console.log(rentals.length, user._id, userData);
+  // implement transaction
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  const userData = await User.findOne({ email: user.email }).session(session);
+  const rentals = await Rental.find({ userId: userData?._id })
+    .populate('bikeId')
+    .session(session);
+
+  await session.abortTransaction();
+  session.endSession();
+
   return rentals;
 };
 //-----------------------------------
