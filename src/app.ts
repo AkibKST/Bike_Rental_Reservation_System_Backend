@@ -22,9 +22,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send(' Bike rental reservation system server testing');
 });
 
-app.use(globalErrorHandler);
-
 //not found
 app.use(notFound);
+
+app.use(globalErrorHandler);
 
 export default app;

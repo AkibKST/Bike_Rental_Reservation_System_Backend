@@ -1,13 +1,14 @@
 import { Types } from 'mongoose';
 
 export type TRental = {
-  date: string;
+  date: Date;
   startTime: string;
-  endTime: string;
-  user: Types.ObjectId;
-  bike: Types.ObjectId;
+  returnTime: string;
+  userId: Types.ObjectId;
+  bikeId: Types.ObjectId;
   totalCost: number;
   isBooked: 'confirmed' | 'cancelled';
+  isReturned: boolean;
 };
 
 export type TSchedule = {

@@ -3,23 +3,22 @@ import { TRental } from './rental.interface';
 
 const rentalSchema = new Schema<TRental>({
   date: {
-    type: String,
-    required: true,
+    type: Date,
+    default: Date.now,
   },
   startTime: {
     type: String,
     required: true,
   },
-  endTime: {
+  returnTime: {
     type: String,
-    required: true,
   },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  bike: {
+  bikeId: {
     type: Schema.Types.ObjectId,
     ref: 'Bike',
     required: true,
@@ -32,6 +31,10 @@ const rentalSchema = new Schema<TRental>({
     type: String,
     enum: ['confirmed', 'cancelled'],
     default: 'confirmed',
+  },
+  isReturned: {
+    type: Boolean,
+    default: false,
   },
 });
 

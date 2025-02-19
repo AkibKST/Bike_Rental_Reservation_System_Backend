@@ -1,3 +1,4 @@
+// 'HH:mm'
 const calculatePayable = (
   endTime: string,
   startTime: string,

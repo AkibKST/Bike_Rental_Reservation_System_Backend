@@ -19,6 +19,19 @@ export const formatDate = (dateTime: Date): string => {
   return formattedDate;
 };
 
+// ===============================================================
+//'HH:mm'
+export const TimeFormattingHHmm = (date: Date): string => {
+  // Get hours and minutes
+  const hours = String(date.getHours()).padStart(2, '0'); // Ensure 2 digits for hours
+  const minutes = String(date.getMinutes()).padStart(2, '0'); // Ensure 2 digits for minutes
+
+  // Format as "HH:mm"
+  const timeString = `${hours}:${minutes}`;
+  return timeString;
+};
+// ===============================================================
+
 export const TimeConflict = (
   assignedSchedule: TSchedule[],
   newSchedule: TSchedule,
