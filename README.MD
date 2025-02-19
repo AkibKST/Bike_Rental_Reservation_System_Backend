@@ -2,9 +2,9 @@
 
 ---
 
-## Assignment Name: Bike Rental Reservation System Backend
+## Project Name: Bike Rental Reservation System Backend
 
-## You have been assigned the task of building the backend for a Bike Renting System. The main focus of this assignment is to implement error handling, CRUD operations, authentication, and authorization, Transaction & Rollback (If necessary)
+## I have been assigned the task of building the backend for a Bike Renting System. The main focus of this assignment is to implement error handling, CRUD operations, authentication, and authorization, Transaction & Rollback (If necessary)
 
 ### Story
 
@@ -12,7 +12,7 @@
 
 In the vibrant coastal town of Cox's Bazar, famous for its long Inani beach, tourism was thriving. The town, with its scenic beauty and lively atmosphere, was a favorite spot for tourists and locals alike. Seeing an opportunity, Jhankar Mahbub, a local entrepreneur with a passion for technology, decided to start a bike rental service to cater to both tourists and locals.
 
-Jhankar Mahbub envisioned a seamless bike rental system where users could easily rent bikes online. He wanted a backend system that would handle user registrations, bike availability, and booking management efficiently. To achieve this, he planned to hire a developer to build the backend for the Bike Rental Reservation System.
+My client envisioned a seamless bike rental system where users could easily rent bikes online. He wanted a backend system that would handle user registrations, bike availability, and booking management efficiently. To achieve this, he planned to hire a developer to build the backend for the Bike Rental Reservation System.
 
 **Models:**
 
@@ -20,7 +20,7 @@ Jhankar Mahbub envisioned a seamless bike rental system where users could easily
 2. **Bike Model**
 3. **Booking Model**
 
-Jhankar's bike rental service quickly became popular. Tourists and locals loved the convenience of booking bikes online and exploring Cox's Bazar. With a robust backend system in place, Jhankar could efficiently manage his business, and his customers enjoyed a seamless rental experience.
+My client's bike rental service quickly became popular. Tourists and locals loved the convenience of booking bikes online and exploring Cox's Bazar. With a robust backend system in place, He could efficiently manage his business, and his customers enjoyed a seamless rental experience.
 
 ---
 
@@ -206,8 +206,10 @@ Jhankar's bike rental service quickly became popular. Tourists and locals loved 
      }
      ```
 2. **Get All Bikes**
+
    - **Route**: /api/bikes (GET)
    - **Response**:
+
      ```json
      {
        "success": true,
@@ -230,6 +232,7 @@ Jhankar's bike rental service quickly became popular. Tourists and locals loved 
      }
 
      ```
+
 3. **Update Bike (Admin Only)**
    - **Route**: /api/bikes/:id (PUT)
    - **Request Headers**: Authorization: Bearer jwt_token
@@ -340,9 +343,11 @@ Jhankar's bike rental service quickly became popular. Tourists and locals loved 
      }
      ```
 1. **Get All Rentals for User (My rentals)**
+
    - **Route**: /api/rentals (GET)
    - **Request Headers**: Authorization: Bearer jwt_token
    - **Response**:
+
      ```json
      {
        "success": true,
@@ -379,8 +384,10 @@ Jhankar's bike rental service quickly became popular. Tourists and locals loved 
        }
        ```
 2. **Error Handling**:
+
    - Implement proper error handling throughout the application. Use global error handling middleware to catch and handle errors, providing appropriate error responses error messages.
    - Error Response Object should include the following properties:
+
      - **success**: false
      - **message**: Error Type (e.g., Validation Error, Cast Error, Duplicate Entry)
      - **errorMessages**:
@@ -393,6 +400,7 @@ Jhankar's bike rental service quickly became popular. Tourists and locals loved 
        ]
        ```
      - **Sample Error Response**:
+
        ```json
        {
          "success": false,
@@ -407,6 +415,7 @@ Jhankar's bike rental service quickly became popular. Tourists and locals loved 
        }
 
        ```
+
 3. **Not Found Route**:
    - Implement a global "Not Found" handler for unmatched routes. When a route is not found, respond with a generic message: "Not Found."
      - **Response**:
