@@ -2,15 +2,40 @@
 
 ---
 
+# Documentation:
+
+# --Prerequisites:
+
+Ensure you have the following installed:
+
+- Node.js(>=14.x)
+- npm or yarn
+- MongoDB
+
+# --Clone project:
+
+git clone https://github.com/AkibKST/Bike_Rental_Reservation_System_Backend.git
+
+# --Live Demo:
+
+# --Start Project:
+
+- Usage:
+  npm run start:dev
+
+- Once the server is running, use the api endpoint.
+
+---
+
 ## Project Name: Bike Rental Reservation System Backend
 
-## I have been assigned the task of building the backend for a Bike Renting System. The main focus of this assignment is to implement error handling, CRUD operations, authentication, and authorization, Transaction & Rollback (If necessary)
+## I have been assigned the task of building the backend for a Bike Renting System. The main focus of this project is to implement error handling, CRUD operations, authentication, and authorization, Transaction & Rollback (If necessary)
 
 ### Story
 
 ---
 
-In the vibrant coastal town of Cox's Bazar, famous for its long Inani beach, tourism was thriving. The town, with its scenic beauty and lively atmosphere, was a favorite spot for tourists and locals alike. Seeing an opportunity, Jhankar Mahbub, a local entrepreneur with a passion for technology, decided to start a bike rental service to cater to both tourists and locals.
+In the vibrant coastal town of Cox's Bazar, famous for its long Inani beach, tourism was thriving. The town, with its scenic beauty and lively atmosphere, was a favorite spot for tourists and locals alike. Seeing an opportunity, my client a local entrepreneur with a passion for technology, decided to start a bike rental service to cater to both tourists and locals.
 
 My client envisioned a seamless bike rental system where users could easily rent bikes online. He wanted a backend system that would handle user registrations, bike availability, and booking management efficiently. To achieve this, he planned to hire a developer to build the backend for the Bike Rental Reservation System.
 
@@ -30,7 +55,7 @@ My client's bike rental service quickly became popular. Tourists and locals love
 - **Web Framework**: Express.js
 - **ODM & Validation Library**: Zod, Mongoose for MongoDB
 
-### Main Part: (50 Marks)
+### Main Part:
 
 ### Models:
 
@@ -369,7 +394,7 @@ My client's bike rental service quickly became popular. Tourists and locals love
 
      ```
 
-### Bonus Part: (10 Marks)
+### Bonus Part:
 
 ### Middleware and Error Handling:
 

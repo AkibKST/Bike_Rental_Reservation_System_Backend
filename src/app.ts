@@ -19,7 +19,7 @@ app.use('/api', router);
 // };
 
 app.get('/', (req: Request, res: Response) => {
-  res.send(' Bike rental reservation system server testing');
+  res.send(' Bike rental reservation system server is running');
 });
 
 //not found
