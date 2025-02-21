@@ -1,8 +1,8 @@
-import cors from 'cors';
 import express, { Application, Request, Response } from 'express';
-import router from './app/routes';
+import cors from 'cors';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 import notFound from './app/middlewares/notFound';
+import router from './app/routes';
 
 const app: Application = express();
 
@@ -13,18 +13,14 @@ app.use(cors({ origin: ['http://localhost:5173'] }));
 // application routes
 app.use('/api', router);
 
-// const test = async (req: Request, res: Response) => {
-//   const a = 10;
-//   res.send(a);
-// };
-
 app.get('/', (req: Request, res: Response) => {
   res.send(' Bike rental reservation system server is running');
 });
 
 //not found
-app.use(notFound);
+app.use(notFound as unknown as express.RequestHandler);
 
-app.use(globalErrorHandler);
+//error handling
+app.use(globalErrorHandler as unknown as express.ErrorRequestHandler);
 
 export default app;

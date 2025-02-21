@@ -1,9 +1,13 @@
-import { Server } from 'http';
 import app from './app';
 import config from './app/config';
 import mongoose from 'mongoose';
+import * as http from 'http';
 
-let server: Server;
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
+});
 
 async function main() {
   try {
